@@ -1,3 +1,8 @@
+# LLT
+*.tmp
+package-lock.json
+*.code-workspace
+
 # Logs
 logs
 *.log

@@ -1,0 +1,16 @@
+{
+  "name": "llt",
+  "version": "0.1.0",
+  "description": "Link Laptop and Telegram",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Karl Jeong",
+  "license": "ISC",
+  "dependencies": {
+    "battery-level": "^3.0.0",
+    "is-charging": "^2.0.0",
+    "node-telegram-bot-api": "^0.30.0"
+  }
+}
