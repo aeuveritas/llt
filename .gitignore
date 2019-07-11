@@ -2,6 +2,7 @@
 *.tmp
 package-lock.json
 *.code-workspace
+configuration/
 
 # Logs
 logs
