@@ -1,5 +1,27 @@
 {
     "name": "llt_bot",
     "token": "",
-    "chatId": 000000000
+    "chatId": 000000000,
+    "batteryConfig": {
+        "normal": {
+            "level": 0,
+            "interval": 600000
+        },
+        "charge_hard": {
+            "level": 80,
+            "interval": 60000
+        },
+        "charge_soft": {
+            "level": 75,
+            "interval": 180000
+        },
+        "drain_soft": {
+            "level": 35,
+            "interval": 180000
+        },
+        "drain_hard": {
+            "level": 30,
+            "interval": 60000
+        }
+    }
 }

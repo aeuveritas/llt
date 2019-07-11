@@ -1,4 +1,4 @@
-const {token, chatId} = require('./config.json');
+const {token, chatId, batteryConfig} = require('./config.json');
 
 const batteryLevel = require('battery-level');
 const isCharging = require('is-charging');
@@ -14,22 +14,23 @@ let checkBattery = () => {
     isCharging().then(is_charging => {
         batteryLevel().then(level => {
             let message;
-            let interval = 600000;
+            let interval = batteryConfig.normal.interval;
             level *= 100;
+
             if (is_charging) {
-                if (level > 80) {
-                    interval = 60000;
+                if (level > batteryConfig.charge_hard.level) {
+                    interval = batteryConfig.charge_hard.interval;
                     message = '[ERROR] more than 80% (' + level + '%)';
-                } else if (level > 75) {
-                    interval = 180000;
+                } else if (level > batteryConfig.charge_soft.level) {
+                    interval = batteryConfig.charge_soft.interval;
                     message = '[WARNING]  more than 75% (' + level + '%)';
                 }
             } else {
-                if (level < 30) {
-                    interval = 60000;
+                if (level < batteryConfig.drain_hard.level) {
+                    interval = batteryConfig.drain_hard.interval;
                     message = '[ERROR] less than 30%: (' + level + '%)';
-                } else if (level < 35) {
-                    interval = 180000;
+                } else if (level < batteryConfig.drain_soft.level) {
+                    interval = batteryConfig.drain_soft.interval;
                     message = '[WARNING] less than 35% (' + level + '%)';
                 }
                 message = '[INFO] current level: ' + level + '%';
