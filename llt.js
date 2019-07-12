@@ -11,13 +11,14 @@ bot.onText(/\/chatid/, (msg) => {
 });
 
 let checkBattery = () => {
-    isCharging().then(is_charging => {
-        batteryLevel().then(level => {
+    Promise.all([isCharging(), batteryLevel()])
+        .then((result) => {
+            let state = result[0];
+            let level = result[1] * 100;
             let message;
             let interval = batteryConfig.normal.interval;
-            level *= 100;
 
-            if (is_charging) {
+            if (state) {
                 if (level > batteryConfig.charge_hard.level) {
                     interval = batteryConfig.charge_hard.interval;
                     message = '[ERROR] more than 80% (' + level + '%)';
@@ -35,23 +36,19 @@ let checkBattery = () => {
                 }
                 message = '[INFO] current level: ' + level + '%';
             }
-            console.log("charging: " + is_charging + ", level: " + level + ", interval: " + interval);
+            console.log("charging: " + state + ", level: " + level + ", interval: " + interval);
 
             bot.sendMessage(chatId, message);
 
             setTimeout(checkBattery, interval);
-        }).catch((err) => {
-            console.error(err);
+        }).catch((error) => {
+            console.error(erro);
         });
-    }).catch((err) => {
-        console.error(err);
-    });
 };
 
 if (chatId) {
     setTimeout(() => {
         console.log('start');
-        bot.sendMessage(chatId, "BOOT ON: draccoon");
 
         setTimeout(checkBattery, 1000);
     }, 1000);
