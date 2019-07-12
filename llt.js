@@ -11,12 +11,27 @@ bot.onText(/\/chatid/, (msg) => {
 });
 
 let checkBattery = () => {
-    Promise.all([isCharging(), batteryLevel()])
-        .then((result) => {
-            let state = result[0];
-            let level = result[1] * 100;
+    (async () => {
+        try {
+            let cnt = 0;
+            let state;
+            let level;
             let message;
             let interval = batteryConfig.normal.interval;
+
+            for await (promise of [isCharging(), batteryLevel()]) {
+                switch (cnt) {
+                case 0:
+                    state = promise;
+                    break;
+                case 1:
+                    level = promise;
+                    break;
+                default:
+                    console.error('wrong cnt');
+                }
+                cnt++;
+            }
 
             if (state) {
                 if (level > batteryConfig.charge_hard.level) {
@@ -41,9 +56,10 @@ let checkBattery = () => {
             bot.sendMessage(chatId, message);
 
             setTimeout(checkBattery, interval);
-        }).catch((error) => {
-            console.error(erro);
-        });
+        } catch (error) {
+            console.error(error);
+        }
+    })();
 };
 
 if (chatId) {
