@@ -19,13 +19,13 @@ let checkBattery = () => {
             let message;
             let interval = batteryConfig.normal.interval;
 
-            for await (promise of [isCharging(), batteryLevel()]) {
+            for await (result of [isCharging(), batteryLevel()]) {
                 switch (cnt) {
                 case 0:
-                    state = promise;
+                    state = result;
                     break;
                 case 1:
-                    level = promise;
+                    level = result * 100;
                     break;
                 default:
                     console.error('wrong cnt');
