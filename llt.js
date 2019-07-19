@@ -52,9 +52,9 @@ let checkBattery = () => {
             }
 
             if (!message) {
-                message = '[INFO] current level: ' + level + '%';
+                message = '[INFO] current level: ' + level.toFixed(2) + '%';
             }
-            console.log("charging: " + state + ", level: " + level + ", interval: " + interval);
+            console.log("charging: " + state + ", level: " + level.toFixed(2) + ", interval: " + interval);
 
             bot.sendMessage(chatId, message);
 
