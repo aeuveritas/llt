@@ -49,6 +49,9 @@ let checkBattery = () => {
                     interval = batteryConfig.drain_soft.interval;
                     message = '[WARNING] less than 35% (' + level + '%)';
                 }
+            }
+
+            if (!message) {
                 message = '[INFO] current level: ' + level + '%';
             }
             console.log("charging: " + state + ", level: " + level + ", interval: " + interval);
