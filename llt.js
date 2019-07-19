@@ -10,6 +10,19 @@ bot.onText(/\/chatid/, (msg) => {
     process.exit(0);
 });
 
+bot.onText(/\/level/, (msg) => {
+    console.log("Hi");
+    batteryLevel().then((level) => {
+        level *= 100
+
+        console.log('level: ' + level.toFixed(2));
+        message = '[INFO] level=' + level.toFixed(2)
+        bot.sendMessage(chatId, message);
+    }).catch((err) => {
+        console.error(err);
+    });
+});
+
 let checkBattery = () => {
     (async () => {
         try {
