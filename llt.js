@@ -38,7 +38,7 @@ let checkBattery = () => {
                     state = result;
                     break;
                 case 1:
-                    level = result * 100;
+                    level = (result * 100).toFixed(2);
                     break;
                 default:
                     console.error('wrong cnt');
@@ -65,9 +65,9 @@ let checkBattery = () => {
             }
 
             if (!message) {
-                message = '[INFO] current level: ' + level.toFixed(2) + '%';
+                message = '[INFO] current level: ' + level + '%';
             }
-            console.log("charging: " + state + ", level: " + level.toFixed(2) + ", interval: " + interval);
+            console.log("charging: " + state + ", level: " + level + ", interval: " + interval);
 
             bot.sendMessage(chatId, message);
 
